@@ -1,6 +1,5 @@
 {
     "files.associations": {
-        "stdint.h": "c",
-        "mips.h": "c"
+        "stdio.h": "c"
     }
 }
