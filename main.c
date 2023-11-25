@@ -13,7 +13,7 @@ void parse_instruction(Cpu_T *cpu, char * instruction) {
 
     //Macros para escolher uma operaçao
     printf("Decodifica instrucao:\n\n");
-    
+
     compare(instruction,   "add",   add);
     compare(instruction,  "move",  move);
     compare(instruction,  "addu",  addu);
@@ -66,10 +66,10 @@ int main() {
         printf("Digite uma operacao:\n> ");
         scanf("%5s", op);
 
-        printf("PC: 0x%x\n", cpu.registers[PC]);
+        printf("PC: 0x%X\n", cpu.registers[PC]);
         parse_instruction(&cpu, op);
 
-        printf("PC: 0x%x\n", cpu.registers[PC]);
+        printf("PC: 0x%X\n", cpu.registers[PC]);
     }
     return 0;
 }

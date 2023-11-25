@@ -10,7 +10,7 @@
 #define REG(cpu, x) cpu->registers[x]
 #define RAM(cpu, x) cpu->memory[x]
 
-#define ABS(x) x < 0 ? (-x) : x
+#define ABS(x) x < 0 ? (x * -1) : x
 
 typedef struct Cpu {
     int32_t registers[32];
@@ -25,6 +25,9 @@ void get_dataImediate(int *rd, int *rs, int *imediate) {
     scanf("%d", rs);
     printf("i: ");
     scanf("%d", imediate);
+
+    printf("Le registradores...\n\n");
+    printf("ULA: Operacao da ula");
 }
 
 void get_condJ(int *rs, int *rt, int *label_addres) {
@@ -84,24 +87,24 @@ void print_R(Cpu_T * cpu, int rd, int rs, int rt) {
     printf("Escreve registradores...\n\n");
 
 
-    printf("R%d: 0x%X | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
-    printf("R%d: 0x%X | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
-    printf("R%d: 0x%X | dec: (%d)\n", rt, REG(cpu, rt), REG(cpu, rt));
+    printf("R%d: 0x%x | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
+    printf("R%d: 0x%x | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
+    printf("R%d: 0x%x | dec: (%d)\n", rt, REG(cpu, rt), REG(cpu, rt));
 }
 
 void print_RI(Cpu_T * cpu, int rd, int rs) {
     printf("Escreve registradores...\n\n");
 
     
-    printf("R%d: 0x%X | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
-    printf("R%d: 0x%X | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
+    printf("R%d: 0x%x | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
+    printf("R%d: 0x%x | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
 }
 
 void print_Reg(Cpu_T *cpu, int r) {
     printf("Escreve registradores...\n\n");
 
     
-    printf("R%d: 0x%X | dec: (%d)\n", r, REG(cpu, r), REG(cpu, r));
+    printf("R%d: 0x%x | dec: (%d)\n", r, REG(cpu, r), REG(cpu, r));
 }
 
 void printMem(Cpu_T *cpu, int ram, int offset) {
@@ -109,7 +112,7 @@ void printMem(Cpu_T *cpu, int ram, int offset) {
     printf("Escreve registradores...\n\n");
 
     
-    printf("Hex_RAM(0x%X --> 0x%X): ", ram, ram + offset - 1);
+    printf("Hex_RAM(0x%x --> 0x%x): ", ram, ram + offset - 1);
 
     for (int i = 0; i < offset; i++) {
         printf("%X ", RAM(cpu, ram + i));

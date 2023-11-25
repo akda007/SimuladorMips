@@ -1,0 +1,9 @@
+*.exe
+*.o
+*.d
+
+output
+
+.vscode
+
+*.mkv
