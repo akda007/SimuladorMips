@@ -152,6 +152,24 @@ void addu(Cpu_T *cpu) {
     print_R(cpu, rd, rs, rt);
 }
 
+void neg(Cpu_T *cpu) {
+    int rd, rs;
+    get_dataLoad(&rd, &rs);
+
+    REG(cpu, rd) = ~REG(cpu, rs);
+    print_Reg(cpu, rd);
+}
+
+void negu(Cpu_T *cpu) {
+    int rd, rs;
+    get_dataLoad(&rd, &rs);
+
+    REG(cpu, rd) = ABS(REG(cpu, rd));
+
+    REG(cpu, rd) = ~REG(cpu, rs);
+    print_Reg(cpu, rd);
+}
+
 void and(Cpu_T *cpu) {
     int rd, rs, rt;
     get_dataRI(&rd, &rs, &rt);
@@ -165,6 +183,28 @@ void div(Cpu_T *cpu) {
     get_dataRI(&rd, &rs, &rt);
 
     REG(cpu, rd) = (int)REG(cpu, rs) / (int)REG(cpu, rt);
+    print_R(cpu, rd, rs, rt);
+
+}
+
+void rem(Cpu_T *cpu) {
+    int rd, rs, rt;
+    get_dataRI(&rd, &rs, &rt);
+
+    REG(cpu, rd) = (int)REG(cpu, rs) % (int)REG(cpu, rt);
+    print_R(cpu, rd, rs, rt);
+
+}
+
+
+void remu(Cpu_T *cpu) {
+    int rd, rs, rt;
+    get_dataRI(&rd, &rs, &rt);
+
+    REG(cpu, rs) = ABS(REG(cpu,rs));
+    REG(cpu, rt) = ABS(REG(cpu,rt));
+
+    REG(cpu, rd) = (int)REG(cpu, rs) % (int)REG(cpu, rt);
     print_R(cpu, rd, rs, rt);
 
 }
@@ -206,12 +246,23 @@ void mflo(Cpu_T *cpu) {
     REG(cpu, rd) = cpu->LO;
 }
 
-void mult(Cpu_T *cpu) {
+void mult(cpu_t *cpu) {
     int rd, rs, rt;
-    get_dataRI(&rd, &rs, &rt);
+    get_datari(&rd, &rs, &rt);
 
-    REG(cpu, rd) = REG(cpu, rs) * REG(cpu, rt);
-    print_R(cpu, rd, rs, rt);
+    reg(cpu, rd) = reg(cpu, rs) * reg(cpu, rt);
+    print_r(cpu, rd, rs, rt);
+}
+
+void mulou(cpu_t *cpu) {
+    int rd, rs, rt;
+    get_datari(&rd, &rs, &rt);
+
+    REG(cpu, rs) = ABS(REG(cpu, rs));
+    REG(cpu, rt) = ABS(REG(cpu, rt));
+
+    reg(cpu, rd) = reg(cpu, rs) * reg(cpu, rt);
+    print_r(cpu, rd, rs, rt);
 }
 
 void multu(Cpu_T *cpu) {
@@ -240,6 +291,14 @@ void xor(Cpu_T *cpu) {
     REG(cpu, rd) = REG(cpu, rs) ^ REG(cpu, rt);
     print_R(cpu, rd, rs, rt);
 
+}
+
+void xori(Cpu_T *cpu) {
+    int rd, rs, i;
+    get_dataImediate(&rd, &rs, &i);
+
+    REG(cpu, rd) = REG(cpu, rs) ^ i;
+    print_RI(cpu, rd, rs);
 }
 
 void or(Cpu_T *cpu) {
@@ -280,7 +339,23 @@ void sra(Cpu_T *cpu) {
     print_RI(cpu, rd, rs);
 }
 
+void rol(Cpu_T *cpu) {
+    int rd, rs, i;
+    get_dataImediate(&rd, &rs, &i);
 
+
+    REG(cpu, rd) = REG(cpu, rs) << i;
+    print_RI(cpu, rd, rs);
+}
+
+void ror(Cpu_T *cpu) {
+    int rd, rs, i;
+    get_dataImediate(&rd, &rs, &i);
+
+
+    REG(cpu, rd) = REG(cpu, rs) >> i;
+    print_RI(cpu, rd, rs);
+}
 void sub(Cpu_T *cpu) {
     int rd, rs, rt;
     get_dataRI(&rd, &rs, &rt);
