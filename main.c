@@ -8,7 +8,7 @@
 void parse_instruction(Cpu_T *cpu, char * instruction) {
     printf("Instruction memory: busca de operacao\n\n");
 
-    printf("Incrementa PC.\n");
+    printf("Incrementa PC.\n\n");
     cpu->registers[PC] += 4;
 
     //Macros para escolher uma operaçao
@@ -26,19 +26,19 @@ void parse_instruction(Cpu_T *cpu, char * instruction) {
     compare(instruction,  "mult",  mult);
     compare(instruction,  "mulo",  mult);
     compare(instruction,  "mulou",  mulou);
-    compare(instruction,  "mult",  rem);
-    compare(instruction,  "mult",  remu);
+    compare(instruction,  "rem",  rem);
+    compare(instruction,  "remu",  remu);
     compare(instruction, "multu", multu);
-    compare(instruction,  "mult",  neg);
-    compare(instruction,  "mult",  negu);
+    compare(instruction,  "neg",  neg);
+    compare(instruction,  "negu",  negu);
     compare(instruction,   "nor",   nor);
     compare(instruction,   "xor",   xor);
-    compare(instruction,   "xor",   xori);
+    compare(instruction,   "xori",   xori);
     compare(instruction,    "or",    or);
-    compare(instruction,    "or",    rol);
-    compare(instruction,    "or",    ror);
-    compare(instruction,     "j",     blt);
-    compare(instruction,     "j",     ble);
+    compare(instruction,    "rol",    rol);
+    compare(instruction,    "ror",    ror);
+    compare(instruction,     "blt",     blt);
+    compare(instruction,     "ble",     ble);
     compare(instruction,   "sll",   sll);
     compare(instruction,   "srl",   srl);
     compare(instruction,   "sra",   sra);
@@ -75,13 +75,13 @@ int main() {
     char op[6];
 
     for(;;) {
-        printf("Digite uma operacao:\n> ");
+        printf("\n\nDigite uma operacao:\n> ");
         scanf("%5s", op);
 
-        printf("PC: 0x%X\n", cpu.registers[PC]);
+        printf("PC: 0x%02X\n", cpu.registers[PC]);
         parse_instruction(&cpu, op);
 
-        printf("PC: 0x%X\n", cpu.registers[PC]);
+        printf("PC: 0x%02X\n", cpu.registers[PC]);
     }
     return 0;
 }

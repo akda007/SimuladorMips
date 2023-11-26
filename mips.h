@@ -27,7 +27,7 @@ void get_dataImediate(int *rd, int *rs, int *imediate) {
     scanf("%d", imediate);
 
     printf("Le registradores...\n\n");
-    printf("ULA: Operacao da ula");
+    printf("ULA: Operacao da ula\n\n");
 }
 
 void get_condJ(int *rs, int *rt, int *label_addres) {
@@ -39,7 +39,7 @@ void get_condJ(int *rs, int *rt, int *label_addres) {
     scanf("%d", label_addres);
 
     printf("Le registradores...\n\n");
-    printf("ULA: Operacao da ula");
+    printf("ULA: Operacao da ula\n\n");
 }
 
 
@@ -52,7 +52,7 @@ void get_dataRI(int *rd, int *rs, int *rt) {
     scanf("%d", rt);
 
     printf("Le registradores...\n\n");
-    printf("ULA: Operacao da ula");
+    printf("ULA: Operacao da ula\n\n");
 }
 
 void get_dataLoad(int *rs, int *rt) {
@@ -62,7 +62,7 @@ void get_dataLoad(int *rs, int *rt) {
     scanf("%d", rt);
 
     printf("Le registradores...\n\n");
-    printf("ULA: Operacao da ula");
+    printf("ULA: Operacao da ula\n\n");
 }
 
 void get_Reg(int *reg, int * ram) {
@@ -72,7 +72,7 @@ void get_Reg(int *reg, int * ram) {
     scanf("%d", ram);
 
     printf("Le registradores...\n\n");
-    printf("ULA: Operacao da ula");
+    printf("ULA: Operacao da ula\n\n");
 }
 
 void get_dataJ(int * data) {
@@ -80,31 +80,31 @@ void get_dataJ(int * data) {
     scanf("%d", data);
 
     printf("Le registradores...\n\n");
-    printf("ULA: Operacao da ula");
+    printf("ULA: Operacao da ula\n\n");
 }
 
 void print_R(Cpu_T * cpu, int rd, int rs, int rt) {
     printf("Escreve registradores...\n\n");
 
 
-    printf("R%d: 0x%x | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
-    printf("R%d: 0x%x | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
-    printf("R%d: 0x%x | dec: (%d)\n", rt, REG(cpu, rt), REG(cpu, rt));
+    printf("R%d: 0x%02X | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
+    printf("R%d: 0x%02X | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
+    printf("R%d: 0x%02X | dec: (%d)\n", rt, REG(cpu, rt), REG(cpu, rt));
 }
 
 void print_RI(Cpu_T * cpu, int rd, int rs) {
     printf("Escreve registradores...\n\n");
 
     
-    printf("R%d: 0x%x | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
-    printf("R%d: 0x%x | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
+    printf("R%d: 0x%02X | dec: (%d)\n", rd, REG(cpu, rd), REG(cpu, rd));
+    printf("R%d: 0x%02X | dec: (%d)\n", rs, REG(cpu, rs), REG(cpu, rs));
 }
 
 void print_Reg(Cpu_T *cpu, int r) {
     printf("Escreve registradores...\n\n");
 
     
-    printf("R%d: 0x%x | dec: (%d)\n", r, REG(cpu, r), REG(cpu, r));
+    printf("R%d: 0x%02X | dec: (%d)\n", r, REG(cpu, r), REG(cpu, r));
 }
 
 void printMem(Cpu_T *cpu, int ram, int offset) {
@@ -112,10 +112,10 @@ void printMem(Cpu_T *cpu, int ram, int offset) {
     printf("Escreve registradores...\n\n");
 
     
-    printf("Hex_RAM(0x%x --> 0x%x): ", ram, ram + offset - 1);
+    printf("Hex_RAM(0x%02X --> 0x%02X): ", ram, ram + offset - 1);
 
     for (int i = 0; i < offset; i++) {
-        printf("%X ", RAM(cpu, ram + i));
+        printf("%02X ", RAM(cpu, ram + i));
     }
 
     printf("\n");
@@ -246,23 +246,23 @@ void mflo(Cpu_T *cpu) {
     REG(cpu, rd) = cpu->LO;
 }
 
-void mult(cpu_t *cpu) {
+void mult(Cpu_T *cpu) {
     int rd, rs, rt;
-    get_datari(&rd, &rs, &rt);
+    get_dataRI(&rd, &rs, &rt);
 
-    reg(cpu, rd) = reg(cpu, rs) * reg(cpu, rt);
-    print_r(cpu, rd, rs, rt);
+    REG(cpu, rd) = REG(cpu, rs) * REG(cpu, rt);
+    print_R(cpu, rd, rs, rt);
 }
 
-void mulou(cpu_t *cpu) {
+void mulou(Cpu_T *cpu) {
     int rd, rs, rt;
-    get_datari(&rd, &rs, &rt);
+    get_dataRI(&rd, &rs, &rt);
 
     REG(cpu, rs) = ABS(REG(cpu, rs));
     REG(cpu, rt) = ABS(REG(cpu, rt));
 
-    reg(cpu, rd) = reg(cpu, rs) * reg(cpu, rt);
-    print_r(cpu, rd, rs, rt);
+    REG(cpu, rd) = REG(cpu, rs) * REG(cpu, rt);
+    print_R(cpu, rd, rs, rt);
 }
 
 void multu(Cpu_T *cpu) {
